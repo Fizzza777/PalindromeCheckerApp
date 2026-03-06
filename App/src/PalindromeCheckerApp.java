@@ -9,20 +9,7 @@ public class PalindromeCheckerApp {
         System.out.print("Input: ");
         String input = sc.nextLine();
 
-        PalindromeStrategy strategy = new StackStrategy();
-        boolean result = strategy.check(input);
-
-        System.out.println("Is Palindrome: " + result);
-    }
-}
-
-interface PalindromeStrategy {
-    boolean check(String input);
-}
-
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
+        long startTime = System.nanoTime();
 
         Stack<Character> stack = new Stack<>();
 
@@ -30,12 +17,19 @@ class StackStrategy implements PalindromeStrategy {
             stack.push(c);
         }
 
+        boolean isPalindrome = true;
+
         for (char c : input.toCharArray()) {
             if (c != stack.pop()) {
-                return false;
+                isPalindrome = false;
+                break;
             }
         }
 
-        return true;
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
+
+        System.out.println("Is Palindrome: " + isPalindrome);
+        System.out.println("Execution Time: " + executionTime + " ns");
     }
 }
